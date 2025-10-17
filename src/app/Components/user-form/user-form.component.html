@@ -1,0 +1,55 @@
+<div class="d-flex vh-100 justify-content-center align-items-center">
+    <mat-card class="bg-light">
+        <mat-card-header class="d-flex justify-content-center">
+            <h2>User Management</h2>
+        </mat-card-header>
+        <mat-card-content class="text-center">
+            <form [formGroup]="userForm">
+
+                <mat-form-field appearance="outline" class="full-width">
+                    <mat-label>Name</mat-label>
+                    <input matInput formControlName="name" name="name" />
+                    <mat-error *ngIf="userForm.get('name')?.hasError('required') && userForm.get('name')?.touched">
+                        Name is <strong>required!</strong>
+                    </mat-error>
+                </mat-form-field><br>
+
+                <mat-form-field appearance="outline" class="full-width">
+                    <mat-label>Phone</mat-label>
+                    <input matInput formControlName="phone" name="phone" type="text" maxlength="10" pattern="[6-9][0-9]{9}"
+                        inputmode="numeric" />
+                    <mat-error *ngIf="userForm.get('phone')?.hasError('required') && userForm.get('phone')?.touched">
+                        Phone is <strong>required!</strong>
+                    </mat-error>
+                </mat-form-field><br>
+
+                <mat-form-field appearance="outline" class="full-width">
+                    <mat-label>Email</mat-label>
+                    <input matInput formControlName="email" type="email" name="email" />
+                    <mat-error *ngIf="userForm.get('email')?.hasError('required') && userForm.get('email')?.touched">
+                        Email is <strong>required!</strong>
+                    </mat-error>
+                </mat-form-field><br>
+                <mat-form-field appearance="outline" class="full-width">
+                    <mat-label>Password</mat-label>
+                    <input matInput [type]="hidePassword ? 'password' : 'text'" formControlName="password">
+                    <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword"
+                        [attr.aria-label]="'Hide or show password'" [attr.aria-pressed]="!hidePassword">
+                        <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+                    </button>
+                    <mat-error
+                        *ngIf="userForm.get('password')?.hasError('required') && userForm.get('password')?.touched">
+                        Password is <strong>required!</strong>
+                    </mat-error>
+                </mat-form-field><br>
+
+                <button mat-raised-button color="primary" type="submit" (click)="onSubmit()">
+                    {{ editMode ? 'Update' : 'Add' }} User
+                </button>
+                <button class="ms-3" mat-button type="button" (click)="cancelEdit()" *ngIf="editMode">
+                    Cancel
+                </button>
+            </form>
+        </mat-card-content>
+    </mat-card>
+</div>
